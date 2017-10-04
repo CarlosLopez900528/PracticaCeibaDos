@@ -2,6 +2,8 @@ package com.application;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,5 +30,10 @@ public class VehiculoController {
 		}
 		return vehiculoNew;
     }	
+	
+	@RequestMapping(value = "/listarVehiculo" , method = RequestMethod.POST)
+    public List<Vehiculo> listarVehiculo (Vehiculo vh){	
+		return serv.buscarTodos();
+    }
 	
 }
