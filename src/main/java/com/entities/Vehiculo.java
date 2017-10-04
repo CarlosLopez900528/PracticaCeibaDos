@@ -15,17 +15,19 @@ public class Vehiculo {
 	private Long idVehiculo;
 	
 	@Column
-	private String nombre;
+	private int idClaseVehiculo;
 	
-	
-	
-	
+	@Column
+	private String placaVehiculo;
+
 	public Vehiculo() {
 	}
 
-	public Vehiculo(Long idVehiculo, String nombre) {
+	public Vehiculo(Long idVehiculo, int idClaseVehiculo, String placaVehiculo) {
+		super();
 		this.idVehiculo = idVehiculo;
-		this.nombre = nombre;
+		this.idClaseVehiculo = idClaseVehiculo;
+		this.placaVehiculo = placaVehiculo;
 	}
 
 	public Long getIdVehiculo() {
@@ -36,13 +38,19 @@ public class Vehiculo {
 		this.idVehiculo = idVehiculo;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public int getIdClaseVehiculo() {
+		return idClaseVehiculo;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setIdClaseVehiculo(int idClaseVehiculo) {
+		this.idClaseVehiculo = idClaseVehiculo;
 	}
-	
-	
+
+	public String getPlacaVehiculo() {
+		return placaVehiculo;
+	}
+
+	public void setPlacaVehiculo(String placaVehiculo) {
+		this.placaVehiculo = placaVehiculo;
+	}
 }
