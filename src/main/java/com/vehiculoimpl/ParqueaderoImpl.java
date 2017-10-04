@@ -1,4 +1,4 @@
-package com.vehiculoImpl;
+package com.vehiculoimpl;
 
 import java.util.List;
 
