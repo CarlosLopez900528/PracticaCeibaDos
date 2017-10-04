@@ -18,17 +18,11 @@ public class VehiculoController {
 	
 	@Autowired
 	VehiculoService serv;
-		
+	
 
 	@RequestMapping(value = "/createVehiculo" , method = RequestMethod.POST)
-    public Vehiculo vehiculo (Vehiculo vh){
-		Vehiculo vehiculoNew;
-		if (vh.getIdClaseVehiculo() == 1 || vh.getIdClaseVehiculo() == 2) {
-			vehiculoNew = serv.guardarVehiculo(vh);
-		}else{
-			vehiculoNew = new Vehiculo();
-		}
-		return vehiculoNew;
+    public Vehiculo insertVehiculo (Vehiculo vh){
+		return serv.guardarVehiculo(vh);
     }	
 	
 	@RequestMapping(value = "/listarVehiculo" , method = RequestMethod.POST)

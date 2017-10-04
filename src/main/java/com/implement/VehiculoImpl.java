@@ -15,8 +15,14 @@ public class VehiculoImpl implements VehiculoService{
 	@Autowired
 	private RepositoriesVehiculo repo;
 	
-	public Vehiculo guardarVehiculo(Vehiculo vh) {		
-		return repo.save(vh);		
+	public Vehiculo guardarVehiculo(Vehiculo vh) {
+		Vehiculo vehiculoNew;
+		if (vh.getIdClaseVehiculo() == 1 || vh.getIdClaseVehiculo() == 2) {
+			vehiculoNew = repo.save(vh);	
+		}else{
+			vehiculoNew = new Vehiculo();
+		}
+		return vehiculoNew;
 	}
 	
 	public List<Vehiculo> buscarTodos() {		

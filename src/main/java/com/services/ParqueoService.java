@@ -6,7 +6,7 @@ import com.entities.Parqueo;
 
 public interface ParqueoService {
 
-public Parqueo guardarParqueo(Parqueo parqueo);
+	public Parqueo guardarParqueo(Parqueo parqueo);
 	
 	public List<Parqueo> buscarTodos();
 }
