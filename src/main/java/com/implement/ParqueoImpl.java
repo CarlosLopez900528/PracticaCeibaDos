@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entities.Parqueo;
-import com.entities.Vehiculo;
 import com.repositories.RepositoriesParqueo;
 import com.services.ParqueoService;
 
@@ -18,6 +17,7 @@ public class ParqueoImpl implements ParqueoService{
 	boolean vehiculoValido;
 	boolean puedeCrearCarro;
 	boolean puedeCrearMoto;
+	boolean diaHabilPlaca;
 
 	@Autowired
 	private RepositoriesParqueo repoParqueo;
@@ -66,6 +66,20 @@ public class ParqueoImpl implements ParqueoService{
 			puedeCrearMoto = false;
 		}
 		return puedeCrearMoto;
+	}
+	
+	public boolean validaDiaHabil(Parqueo pq) {
+		
+		if (pq.getPlacaVehiculo().substring(0).equals("A")) {
+			if (pq.getFechaParqueo().getDay() == 0 || pq.getFechaParqueo().getDay() == 1) {
+				diaHabilPlaca = true;
+			}else{
+				diaHabilPlaca = false;
+			}
+		}else{
+			diaHabilPlaca = false;
+		}
+		return diaHabilPlaca;
 	}
 
 	public List<Parqueo> buscarTodos() {
