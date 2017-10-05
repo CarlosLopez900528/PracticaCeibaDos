@@ -1,5 +1,6 @@
 package com.implement;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +25,23 @@ public class ParqueoImpl implements ParqueoService{
 	
 	public Parqueo guardarParqueo(Parqueo pq) {
 		Parqueo parq;
-		if (validaClaseVehiculo(pq) && validaCantCarros(pq)) {
-			parq = repoParqueo.save(pq);	
-		}else if(validaClaseVehiculo(pq) && validaCantMotos(pq)){
-			parq = repoParqueo.save(pq);
+		Date fechaParqueo = new Date();
+		pq.setFechaParqueo(fechaParqueo);
+		if (validaDiaHabil(pq)) {
+			if (validaClaseVehiculo(pq) && validaCantCarros(pq)) {
+				parq = repoParqueo.save(pq);	
+			}else if(validaClaseVehiculo(pq) && validaCantMotos(pq)){
+				parq = repoParqueo.save(pq);
+			}else{
+				parq = new Parqueo();
+			}
 		}else{
 			parq = new Parqueo();
 		}
 		return parq;
 	}
 	
-	public boolean validaClaseVehiculo(Parqueo pq) {
-		
+	public boolean validaClaseVehiculo(Parqueo pq) {		
 		if (pq.getIdClaseVehiculo() == 1 || pq.getIdClaseVehiculo() == 2) {
 			vehiculoValido = true;
 		}else {
@@ -68,16 +74,16 @@ public class ParqueoImpl implements ParqueoService{
 		return puedeCrearMoto;
 	}
 	
-	public boolean validaDiaHabil(Parqueo pq) {
-		
-		if (pq.getPlacaVehiculo().substring(0).equals("A")) {
+	public boolean validaDiaHabil(Parqueo pq) {	
+		String letraInicial = pq.getPlacaVehiculo().substring(0,1);
+		if (letraInicial.equals("A")) {
 			if (pq.getFechaParqueo().getDay() == 0 || pq.getFechaParqueo().getDay() == 1) {
 				diaHabilPlaca = true;
 			}else{
 				diaHabilPlaca = false;
 			}
 		}else{
-			diaHabilPlaca = false;
+			diaHabilPlaca = true;
 		}
 		return diaHabilPlaca;
 	}
