@@ -13,6 +13,8 @@ import com.services.ParqueoService;
 @Service
 public class ParqueoImpl implements ParqueoService{
 	
+	static final int MAXIMO_CANT_CARRO = 20;
+	static final int MAXIMO_CANT_MOTO = 10;
 	int cantCarros;
 	int cantMotos;
 	boolean vehiculoValido;
@@ -53,7 +55,7 @@ public class ParqueoImpl implements ParqueoService{
 	public boolean validaCantCarros(Parqueo pq) {	
 		List<Parqueo> listParqueoCa = findByIdClaseVehiculo(1);
 		cantCarros = listParqueoCa.size();
-		if (pq.getIdClaseVehiculo() == 1 && cantCarros < 20) {
+		if (pq.getIdClaseVehiculo() == 1 && cantCarros < MAXIMO_CANT_CARRO) {
 			puedeCrearCarro = true;
 			cantCarros = cantCarros + 1;
 		}else {
@@ -65,7 +67,7 @@ public class ParqueoImpl implements ParqueoService{
 	public boolean validaCantMotos(Parqueo pq) {
 		List<Parqueo> listParqueoMo = findByIdClaseVehiculo(2);
 		cantMotos = listParqueoMo.size();
-		if (pq.getIdClaseVehiculo() == 2 && cantMotos < 10) {
+		if (pq.getIdClaseVehiculo() == 2 && cantMotos < MAXIMO_CANT_MOTO) {
 			puedeCrearMoto = true;
 			cantMotos = cantMotos + 1;
 		}else {
