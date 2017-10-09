@@ -2,6 +2,8 @@ package com.implement.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.entities.Parqueo;
@@ -32,12 +34,30 @@ public class ParqueoImplTest {
 
 	@Test
 	public void testValidaCantCarros() {
-		fail("Not yet implemented");
+		ParqueaderoTestDatabuilder parqueaderoTestDatabuilder = new ParqueaderoTestDatabuilder().
+				conidClaseVehiculo(1).
+				conplacaVehiculo("CJA083");
+
+		// act
+		ParqueoImpl parqueoImpl = new ParqueoImpl(); 
+		Parqueo parqueo = parqueaderoTestDatabuilder.build();
+		
+		// assert
+		assertEquals(true, parqueoImpl.validaCantCarros(parqueo));
 	}
 
 	@Test
 	public void testValidaCantMotos() {
-		fail("Not yet implemented");
+		ParqueaderoTestDatabuilder parqueaderoTestDatabuilder = new ParqueaderoTestDatabuilder().
+				conidClaseVehiculo(2).
+				conplacaVehiculo("MTN748");
+
+		// act
+		ParqueoImpl parqueoImpl = new ParqueoImpl(); 
+		Parqueo parqueo = parqueaderoTestDatabuilder.build();
+		
+		// assert
+		assertEquals(true, parqueoImpl.validaCantMotos(parqueo));
 	}
 
 	@Test
