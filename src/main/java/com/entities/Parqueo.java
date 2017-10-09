@@ -1,6 +1,6 @@
 package com.entities;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,12 +26,12 @@ public class Parqueo {
 	
 	@Column
 	@CreationTimestamp
-	private Date fechaParqueo;
+	private Calendar fechaParqueo;
 	
 	public Parqueo() {		
 	}
 
-	public Parqueo(Long idParqueo, int idClaseVehiculo, String placaVehiculo, Date fechaParqueo) {
+	public Parqueo(Long idParqueo, int idClaseVehiculo, String placaVehiculo, Calendar fechaParqueo) {
 		this.idParqueo = idParqueo;
 		this.idClaseVehiculo = idClaseVehiculo;
 		this.placaVehiculo = placaVehiculo;
@@ -62,11 +62,11 @@ public class Parqueo {
 		this.placaVehiculo = placaVehiculo;
 	}
 
-	public Date getFechaParqueo() {
+	public Calendar getFechaParqueo() {
 		return fechaParqueo;
 	}
 
-	public void setFechaParqueo(Date fechaParqueo) {
+	public void setFechaParqueo(Calendar fechaParqueo) {
 		this.fechaParqueo = fechaParqueo;
 	}	
 }
