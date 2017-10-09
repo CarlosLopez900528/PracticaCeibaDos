@@ -32,12 +32,22 @@ public class ParqueoImplTest {
 	}
 
 	@Test
+	public void testCalcularCobro() {
+		fail("Not yet implemented");
+	}
+
+	@Test
 	public void testBuscarTodos() {
 		fail("Not yet implemented");
 	}
 
 	@Test
 	public void testFindByIdClaseVehiculo() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testFindByPlacaVehiculo() {
 		fail("Not yet implemented");
 	}
 

@@ -17,6 +17,7 @@ import com.services.ParqueoService;
 public class ParqueoImpl implements ParqueoService{
 	
 	static final String NO_DIA_HABIL_PLACA_A = "Hoy no se permite el ingreso a los vehiculos que inicia su placa en A";
+	static final String VEHICULO_CON_PLACA_IGUAL = "El vehiculo con esta placa ya se encuentra en el parqueadero";
 	static final String VEHICULO_NO_PERMITIDO = "Este vehiculo no esta permitido o se completo el cupo";
 	static final int MAXIMO_CANT_CARRO = 20;
 	static final int MAXIMO_CANT_MOTO = 10;
@@ -39,19 +40,26 @@ public class ParqueoImpl implements ParqueoService{
 	public Parqueo guardarParqueo(Parqueo pq) {
 		Parqueo parq;
 		Calendar fechaParqueo = new GregorianCalendar();
-	
-		pq.setFechaParqueo(fechaParqueo);
-		if (validaDiaHabil(pq)) {
-			if (validaClaseVehiculo(pq) && validaCantCarros(pq)) {
-				parq = repoParqueo.save(pq);	
-			}else if(validaClaseVehiculo(pq) && validaCantMotos(pq)){
-				parq = repoParqueo.save(pq);
+		
+		Parqueo parqueoV = this.findByPlacaVehiculo(pq.getPlacaVehiculo());		
+
+		if (parqueoV == null) {
+			pq.setFechaParqueo(fechaParqueo);
+			if (validaDiaHabil(pq)) {
+				if (validaClaseVehiculo(pq) && validaCantCarros(pq)) {
+					parq = repoParqueo.save(pq);	
+				}else if(validaClaseVehiculo(pq) && validaCantMotos(pq)){
+					parq = repoParqueo.save(pq);
+				}else{
+					throw new ParqueaderoExeption(VEHICULO_NO_PERMITIDO);
+				}
 			}else{
-				throw new ParqueaderoExeption(VEHICULO_NO_PERMITIDO);
+				throw new ParqueaderoExeption(NO_DIA_HABIL_PLACA_A);
 			}
 		}else{
-			throw new ParqueaderoExeption(NO_DIA_HABIL_PLACA_A);
+			throw new ParqueaderoExeption(VEHICULO_CON_PLACA_IGUAL);
 		}
+		
 		return parq;
 	}
 	
@@ -100,31 +108,55 @@ public class ParqueoImpl implements ParqueoService{
 			diaHabilPlaca = true;
 		}
 		return diaHabilPlaca;
-	}
+	}	
 	
-	public int calcularCobro(Parqueo pq) {
-		if (pq.getIdClaseVehiculo() == CARRO) {
-			valorCobro = cobroCarro(pq);
-		}else{
-			valorCobro = cobroMoto(pq);
-		}
-		return valorCobro;
-	}
-	
-	public int cobroCarro(Parqueo pq) {
-		Calendar fechaSalida = new GregorianCalendar();
-		horaSalida =fechaSalida.get(Calendar.HOUR_OF_DAY);
-	    minutosSalida = fechaSalida.get(Calendar.MINUTE);
-	    segundosSalida = fechaSalida.get(Calendar.SECOND);
-		if (diaHabilPlaca) {
+	public float calcularCobro(String placa){
+
+		Parqueo parqueoV = this.findByPlacaVehiculo(placa);
+		
+		if(parqueoV != null) {
 			
-		}
-		return 0;
+			float valorAPagar;
+			float tarifaDiaVehiculo;
+			float tarifaHoraVehiculo;
+			
+			if(parqueoV.getIdClaseVehiculo() == MOTO) {
+				
+				tarifaDiaVehiculo = 6000;
+				tarifaHoraVehiculo = 500;
+			}else {
+				
+				tarifaDiaVehiculo = 8000;
+				tarifaHoraVehiculo = 1000;
+			} 
+			
+			Date ahora = new Date();
+			
+			Calendar calFechaInicial=Calendar.getInstance();
+			Calendar calFechaFinal=Calendar.getInstance();
+			
+			calFechaInicial.setTime(parqueoV.getFechaParqueo().getTime());
+			calFechaFinal.setTime(ahora);
+			
+			long numeroHoras=0;
+			numeroHoras=(long)Math.ceil((float)(calFechaFinal.getTimeInMillis()-calFechaInicial.getTimeInMillis())/1000/60/60);
+
+			if(numeroHoras >= 9) {
+				
+				long numeroDias = (long)Math.ceil(numeroHoras /24.0);
+				valorAPagar = numeroDias * tarifaDiaVehiculo;
+				
+			}else valorAPagar = numeroHoras * tarifaHoraVehiculo;
+			
+			if(parqueoV.getIdClaseVehiculo() == MOTO && parqueoV.getCilindraje() > 500)
+				valorAPagar +=  2000;
+
+			return valorAPagar;
+			
+		}else throw new ParqueaderoExeption("El vehículo no existe");
+		
 	}
-	
-	public int cobroMoto(Parqueo pq) {
-		return 0;
-	}
+
 
 	public List<Parqueo> buscarTodos() {
 		return repoParqueo.findAll();
@@ -133,4 +165,8 @@ public class ParqueoImpl implements ParqueoService{
 	public List<Parqueo> findByIdClaseVehiculo(int idClaseVehiculo) {		
 		return repoParqueo.findByIdClaseVehiculo(idClaseVehiculo);
 	}
+
+	public Parqueo findByPlacaVehiculo(String placaVehiculo) {
+		return repoParqueo.findByPlacaVehiculo(placaVehiculo);
+	}	
 }

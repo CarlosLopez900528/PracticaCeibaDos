@@ -26,4 +26,11 @@ public class ParqueoController {
     public List<Parqueo> listarParqueo (Parqueo pq){	
 		return servParqueo.buscarTodos();
     }
+	
+	@RequestMapping(value = "/calcularCobro" , method = RequestMethod.POST)
+    public float calcularCobro (Parqueo pq){	
+		return servParqueo.calcularCobro(pq.getPlacaVehiculo());
+    }
+	
+	
 }

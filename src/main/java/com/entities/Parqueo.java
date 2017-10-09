@@ -25,16 +25,30 @@ public class Parqueo {
 	private String placaVehiculo;
 	
 	@Column
+	private int cilindraje;
+	
+	public int getCilindraje() {
+		return cilindraje;
+	}
+
+	public void setCilindraje(int cilindraje) {
+		this.cilindraje = cilindraje;
+	}
+
+	@Column
 	@CreationTimestamp
 	private Calendar fechaParqueo;
 	
 	public Parqueo() {		
 	}
 
-	public Parqueo(Long idParqueo, int idClaseVehiculo, String placaVehiculo, Calendar fechaParqueo) {
+	
+
+	public Parqueo(Long idParqueo, int idClaseVehiculo, String placaVehiculo, int cilindraje, Calendar fechaParqueo) {
 		this.idParqueo = idParqueo;
 		this.idClaseVehiculo = idClaseVehiculo;
 		this.placaVehiculo = placaVehiculo;
+		this.cilindraje = cilindraje;
 		this.fechaParqueo = fechaParqueo;
 	}
 
