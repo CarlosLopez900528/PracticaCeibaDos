@@ -27,14 +27,6 @@ public class Parqueo {
 	@Column
 	private int cilindraje;
 	
-	public int getCilindraje() {
-		return cilindraje;
-	}
-
-	public void setCilindraje(int cilindraje) {
-		this.cilindraje = cilindraje;
-	}
-
 	@Column
 	@CreationTimestamp
 	private Calendar fechaParqueo;
@@ -42,10 +34,7 @@ public class Parqueo {
 	public Parqueo() {		
 	}
 
-	
-
-	public Parqueo(Long idParqueo, int idClaseVehiculo, String placaVehiculo, int cilindraje, Calendar fechaParqueo) {
-		this.idParqueo = idParqueo;
+	public Parqueo(int idClaseVehiculo, String placaVehiculo, int cilindraje, Calendar fechaParqueo) {
 		this.idClaseVehiculo = idClaseVehiculo;
 		this.placaVehiculo = placaVehiculo;
 		this.cilindraje = cilindraje;
@@ -83,4 +72,12 @@ public class Parqueo {
 	public void setFechaParqueo(Calendar fechaParqueo) {
 		this.fechaParqueo = fechaParqueo;
 	}	
+	
+	public int getCilindraje() {
+		return cilindraje;
+	}
+
+	public void setCilindraje(int cilindraje) {
+		this.cilindraje = cilindraje;
+	}
 }
