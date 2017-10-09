@@ -11,10 +11,6 @@ import com.testdatabuilder.ParqueaderoTestDatabuilder;
 
 public class ParqueoImplTest {
 
-	@Test
-	public void testGuardarParqueo() {
-		assertEquals(true, true);
-	}
 
 	@Test
 	public void testValidaClaseVehiculo() {
@@ -55,31 +51,41 @@ public class ParqueoImplTest {
 		// act
 		ParqueoImpl parqueoImpl = new ParqueoImpl(); 
 		Parqueo parqueo = parqueaderoTestDatabuilder.build();
-		
 		// assert
-		//assertEquals(true, parqueoImpl.validaCantMotos(parqueo));
 		assertEquals(true, true);
+
 	}
 
 	@Test
 	public void testValidaDiaHabil() {
-		assertEquals(true, true);
+		ParqueaderoTestDatabuilder parqueaderoTestDatabuilder = new ParqueaderoTestDatabuilder().
+				conidClaseVehiculo(1).
+				conplacaVehiculo("CJA083");
+
+		// act
+		ParqueoImpl parqueoImpl = new ParqueoImpl(); 
+		Parqueo parqueo = parqueaderoTestDatabuilder.build();
+		
+		// assert
+		assertEquals(true, parqueoImpl.validaDiaHabil(parqueo));	
 	}
 
 	@Test
 	public void testCalcularCobro() {
+		ParqueaderoTestDatabuilder parqueaderoTestDatabuilder = new ParqueaderoTestDatabuilder().
+				conidClaseVehiculo(2).
+				conplacaVehiculo("MTN748").
+				concilindraje(300);
+
+		// act
+		ParqueoImpl parqueoImpl = new ParqueoImpl(); 
+		Parqueo parqueo = parqueaderoTestDatabuilder.build();
+		parqueo = parqueoImpl.guardarParqueo(parqueo);
+		// assert
 		assertEquals(true, true);
 	}
 
-	@Test
-	public void testBuscarTodos() {
-		assertEquals(true, true);
-	}
 
-	@Test
-	public void testFindByIdClaseVehiculo() {
-		assertEquals(true, true);
-	}
 
 	@Test
 	public void testFindByPlacaVehiculo() {
