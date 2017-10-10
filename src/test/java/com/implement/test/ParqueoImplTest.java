@@ -2,6 +2,8 @@ package com.implement.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
@@ -72,10 +74,12 @@ public class ParqueoImplTest {
 
 	@Test
 	public void testCalcularCobro() {
+		Calendar fechaParqueo = new GregorianCalendar();
 		ParqueaderoTestDatabuilder parqueaderoTestDatabuilder = new ParqueaderoTestDatabuilder().
 				conidClaseVehiculo(2).
 				conplacaVehiculo("MTN748").
-				concilindraje(300);
+				concilindraje(300).
+				confechaParqueo(fechaParqueo);
 
 		// act
 		ParqueoImpl parqueoImpl = new ParqueoImpl(); 

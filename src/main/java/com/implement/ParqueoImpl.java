@@ -153,7 +153,7 @@ public class ParqueoImpl implements ParqueoService{
 
 			return valorAPagar;
 			
-		}else throw new ParqueaderoExeption("El vehículo no existe");
+		}else throw new ParqueaderoExeption("El vehiculo no existe");
 		
 	}
 
